@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class HeroKickController : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private Transform pointTransform;
 
@@ -15,8 +16,19 @@ public class HeroKickController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            newRock = Instantiate(rockPrefab, pointTransform.position, Quaternion.identity);
-            
+            animator.SetBool("Kick",true);
+            newRock = Instantiate(rockPrefab, pointTransform.position, Quaternion.Euler(90f,0,0));
+            newRock.transform.DOMoveY(1, 1);
         } 
+    }
+
+    public void KickTheRock()
+    {
+        newRock.transform.DOMoveZ(20, 1f);
+    }
+
+    public void ReturnIdleAnim()
+    {
+        animator.SetBool("Kick",false);
     }
 }
